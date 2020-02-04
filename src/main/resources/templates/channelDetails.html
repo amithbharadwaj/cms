@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>CHannel Details</title>
+</head>
+<body>
+	<table style="width: 100%">
+		<tr>
+			<td>channel Name:</td>
+			<td><span th:text="${response.channel.name}"></span></td>
+		</tr>
+		<tr>
+			<td>channel Description:</td>
+			<td><span th:text="${response.channel.description}"></span></td>
+		</tr>
+		<tr>
+			<td>Latitude:</td>
+			<td><span th:text="${response.channel.latitude}"></span></td>
+		</tr>
+		<tr>
+			<td>Longitude:</td>
+			<td><span th:text="${response.channel.longitude}"></span></td>
+		</tr>
+	</table>
+</body>
+</html>
