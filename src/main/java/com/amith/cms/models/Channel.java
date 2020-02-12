@@ -3,6 +3,12 @@ package com.amith.cms.models;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+@Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "id",
@@ -19,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "longitude",
     "field1",
     "field2",
-    "field3",
+    "field3",	
     "field4",
     "field5",
     "field6",
@@ -31,6 +38,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class Channel {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty("id")
     private Integer id;
     @JsonProperty("name")

@@ -1,4 +1,4 @@
-package com.amith.cms.config;
+package com.amith.cms.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
