@@ -1,34 +1,33 @@
 
 package com.amith.cms.models;
 
-import java.util.HashMap;
-import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+@Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "created_at",
-    "entry_id",
-    "field1",
-    "field2",
-    "field3",
-    "field4",
-    "field5",
-    "field6",
-    "field7",
-    "field8"
-})
+@Table(name = "feed_details")
 public class Feed {
 
+	@Id
+    @JsonProperty("id")
+    private Integer id;
+	
     @JsonProperty("created_at")
-    private String createdAt;
-    @JsonProperty("entry_id")
-    private Integer entryId;
+    @Column(name = "created_at", nullable = false)
+    private Date createdAt;
+    
+    @JsonProperty("channel_id")
+    @Column(name = "channel_id", nullable = false)
+    private int channelId;
+    
     @JsonProperty("field1")
     private String field1;
     @JsonProperty("field2")
@@ -36,39 +35,47 @@ public class Feed {
     @JsonProperty("field3")
     private String field3;
     @JsonProperty("field4")
-    private Object field4;
+    private String field4;
     @JsonProperty("field5")
-    private Object field5;
+    private String field5;
     @JsonProperty("field6")
-    private Object field6;
+    private String field6;
     @JsonProperty("field7")
-    private Object field7;
+    private String field7;
     @JsonProperty("field8")
-    private Object field8;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
+    private String field8;
+    
     @JsonProperty("created_at")
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
     @JsonProperty("created_at")
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    @JsonProperty("entry_id")
-    public Integer getEntryId() {
-        return entryId;
+    @JsonProperty("id")
+    public Integer getId() {
+        return id;
     }
 
-    @JsonProperty("entry_id")
-    public void setEntryId(Integer entryId) {
-        this.entryId = entryId;
+    @JsonProperty("id")
+    public void setId(Integer id) {
+        this.id = id;
     }
+    
+    @JsonProperty("channel_id")
+    public int getChannelId() {
+		return channelId;
+	}
+    
+    @JsonProperty("channel_id")
+	public void setChannelId(int channelId) {
+		this.channelId = channelId;
+	}
 
-    @JsonProperty("field1")
+	@JsonProperty("field1")
     public String getField1() {
         return field1;
     }
@@ -99,63 +106,53 @@ public class Feed {
     }
 
     @JsonProperty("field4")
-    public Object getField4() {
+    public String getField4() {
         return field4;
     }
 
     @JsonProperty("field4")
-    public void setField4(Object field4) {
+    public void setField4(String field4) {
         this.field4 = field4;
     }
 
     @JsonProperty("field5")
-    public Object getField5() {
+    public String getField5() {
         return field5;
     }
 
     @JsonProperty("field5")
-    public void setField5(Object field5) {
+    public void setField5(String field5) {
         this.field5 = field5;
     }
 
     @JsonProperty("field6")
-    public Object getField6() {
+    public String getField6() {
         return field6;
     }
 
     @JsonProperty("field6")
-    public void setField6(Object field6) {
+    public void setField6(String field6) {
         this.field6 = field6;
     }
 
     @JsonProperty("field7")
-    public Object getField7() {
+    public String getField7() {
         return field7;
     }
 
     @JsonProperty("field7")
-    public void setField7(Object field7) {
+    public void setField7(String field7) {
         this.field7 = field7;
     }
 
     @JsonProperty("field8")
-    public Object getField8() {
+    public String getField8() {
         return field8;
     }
 
     @JsonProperty("field8")
-    public void setField8(Object field8) {
+    public void setField8(String field8) {
         this.field8 = field8;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }

@@ -33,13 +33,13 @@ public class ChannelRestController {
 	}
 	
 	@PostMapping("/{ChannelId}/feeds")
-	public void addChannelFeeds(@RequestBody Feed feed) {
-		channelService.addChannelFeeds(feed);
+	public Feed addChannelFeeds(@RequestBody Feed feed) {
+		return channelService.addChannelFeeds(feed);
 	}
 	
 	@GetMapping("/{ChannelId}/feeds")
 	public Response getChannelFeeds(@PathVariable("ChannelId") int ChannelId, 
-			@RequestParam("pageSize") String pageSize) {
+			@RequestParam("pageSize") int pageSize) {
 		return channelService.getChannelFeeds(ChannelId, pageSize);
 	}
 	

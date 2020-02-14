@@ -1,55 +1,44 @@
 
 package com.amith.cms.models;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @Entity
+@Table(name = "channel_details")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "id",
-    "name",
-    "description",
-    "latitude",
-    "longitude",
-    "field1",
-    "field2",
-    "field3",	
-    "field4",
-    "field5",
-    "field6",
-    "field7",
-    "field8",
-    "created_at",
-    "updated_at",
-    "last_entry_id"
-})
 public class Channel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty("id")
     private Integer id;
+	
     @JsonProperty("name")
+    @Column(name = "channel_name", nullable = false)
     private String name;
+    
     @JsonProperty("description")
+    @Column(name = "channel_description")
     private String description;
+    
     @JsonProperty("latitude")
+    @Column(name = "channel_latitude")
     private String latitude;
+    
     @JsonProperty("longitude")
+    @Column(name = "channel_longtitude")
     private String longitude;
+    
     @JsonProperty("field1")
     private String field1;
     @JsonProperty("field2")
@@ -66,15 +55,19 @@ public class Channel {
     private String field7;
     @JsonProperty("field8")
     private String field8;
+    
     @JsonProperty("created_at")
-    private String createdAt;
+    @Column(name = "created_at")
+    private Date createdAt;
+    
     @JsonProperty("updated_at")
-    private String updatedAt;
+    @Column(name = "updated_at")
+    private Date updatedAt;
+    
     @JsonProperty("last_entry_id")
+    @Column(name = "last_entry_id")    
     private Integer lastEntryId;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
+    
     @JsonProperty("id")
     public Integer getId() {
         return id;
@@ -206,22 +199,22 @@ public class Channel {
     }
 
     @JsonProperty("created_at")
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
     @JsonProperty("created_at")
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
     @JsonProperty("updated_at")
-    public String getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
     @JsonProperty("updated_at")
-    public void setUpdatedAt(String updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -233,16 +226,6 @@ public class Channel {
     @JsonProperty("last_entry_id")
     public void setLastEntryId(Integer lastEntryId) {
         this.lastEntryId = lastEntryId;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }
