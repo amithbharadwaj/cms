@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,28 +24,37 @@ public class ChannelRestController {
 	private ChannelService channelService;
 	
 	@PostMapping("/")
-	public Channel addChannel(@RequestBody Channel Channel) {
-		return channelService.addChannel(Channel);
+	public Channel addChannel(@RequestBody Channel channel) {
+		return channelService.addChannel(channel);
 	}
 	
-	@GetMapping("/{ChannelId}")
-	public Channel getChannelById(@PathVariable("ChannelId") int ChannelId) {
-		return channelService.getChannelById(ChannelId);
+	@PutMapping("/{channelId}")
+	public Channel updateChannel(@PathVariable("channelId") int channelId, @RequestBody Channel channel) {
+		return channelService.updateChannel(channelId, channel);
 	}
 	
-	@PostMapping("/{ChannelId}/feeds")
-	public Feed addChannelFeeds(@RequestBody Feed feed) {
-		return channelService.addChannelFeeds(feed);
+	@GetMapping("/{channelId}")
+	public Channel getChannelById(@PathVariable("channelId") int channelId) {
+		return channelService.getChannelById(channelId);
 	}
 	
-	@GetMapping("/{ChannelId}/feeds")
-	public Response getChannelFeeds(@PathVariable("ChannelId") int ChannelId, 
+	@DeleteMapping("/{channelId}")
+	public void deleteChannel(@PathVariable("channelId") int channelId) {
+		channelService.deleteChannel(channelId);
+	}
+	
+	
+	
+	@PostMapping("/{channelId}/feeds")
+	public Feed addChannelFeeds(@PathVariable("channelId") int channelId, @RequestBody Feed feed) {
+		return channelService.addChannelFeeds(channelId, feed);
+	}
+	
+	@GetMapping("/{channelId}/feeds")
+	public Response getChannelFeeds(@PathVariable("channelId") int channelId, 
 			@RequestParam("pageSize") int pageSize) {
-		return channelService.getChannelFeeds(ChannelId, pageSize);
+		return channelService.getChannelFeeds(channelId, pageSize);
 	}
 	
-	@DeleteMapping("/{ChannelId}")
-	public void deleteChannel(@PathVariable("ChannelId") int ChannelId) {
-		channelService.deleteChannel(ChannelId);
-	}
+	
 }

@@ -1,5 +1,6 @@
 package com.amith.cms.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +34,14 @@ public class ChannelService {
 	}
 	
 	public Channel addChannel(Channel channel) {
+		channel.setCreatedAt(new Date());
+		channel.setUpdatedAt(new Date());
+		channel.setLastEntryId(0);
+		return channelRepository.save(channel);
+	}
+	
+	public Channel updateChannel(int channelId, Channel channel) {
+		channel.setId(channelId);
 		return channelRepository.save(channel);
 	}
 	
@@ -40,9 +49,18 @@ public class ChannelService {
 		channelRepository.deleteById(channelId);
 	}
 
-	public Feed addChannelFeeds(Feed feed) {
-		Channel channel = getChannelById(feed.getChannelId());
-		return feedRepository.save(feed);
+	public Feed addChannelFeeds(int channelId, Feed feed) {
+		Channel channel = getChannelById(channelId);
+		
+		feed.setChannelId(channelId);
+		feed.setCreatedAt(new Date());
+		Feed feed1 = feedRepository.save(feed);
+		
+		channel.setUpdatedAt(new Date());
+		channel.setLastEntryId(feed1.getId());
+		channelRepository.save(channel);
+		
+		return feed1;
 	}
 
 	public Response getChannelFeeds(int channelId, int pageSize) {
@@ -55,5 +73,7 @@ public class ChannelService {
 		response.setFeeds(feeds);
 		return response;
 	}
+
+	
 
 }
