@@ -1,2 +1,0 @@
-insert into User(userName, password, active, roles) values ('user', 'pass', true, ''ROLE_USER');
-insert into User(userName, password, active, roles) values ('admin', 'pass', true, ''ROLE_ADMIN');
