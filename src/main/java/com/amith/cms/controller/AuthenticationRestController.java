@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.amith.cms.models.AuthenticationRequest;
 import com.amith.cms.models.AuthenticationResponse;
+import com.amith.cms.models.User;
 import com.amith.cms.service.JwtUtil;
 import com.amith.cms.service.MyUserDetailsService;
 
@@ -50,5 +51,10 @@ public class AuthenticationRestController {
 
 		return ResponseEntity.ok(new AuthenticationResponse(jwt));
 	}
-
+	
+	@PostMapping("/register")
+	public User addUser(@RequestBody User user) {
+		return userDetailsService.registerUser(user);
+	}
+	
 }

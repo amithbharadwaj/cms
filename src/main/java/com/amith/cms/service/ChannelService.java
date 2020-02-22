@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +16,7 @@ import com.amith.cms.exception.ChannelNotFoundException;
 import com.amith.cms.models.Channel;
 import com.amith.cms.models.Feed;
 import com.amith.cms.models.Response;
+import com.amith.cms.models.User;
 import com.amith.cms.repository.ChannelRepository;
 import com.amith.cms.repository.FeedRepository;
 
@@ -25,6 +28,12 @@ public class ChannelService {
 	
 	@Autowired
 	private FeedRepository feedRepository;
+	
+	@Autowired
+	private MyUserDetailsService userDetailsService;
+	
+	@Autowired
+	private JwtUtil jwtUtil;
 
 	public Channel getChannelById(int channelId) {
 		Optional<Channel> optionalChannel = channelRepository.findById(channelId);
@@ -63,8 +72,11 @@ public class ChannelService {
 		return feed1;
 	}
 
-	public Response getChannelFeeds(int channelId, int pageSize) {
+	public Response getChannelFeeds(HttpServletRequest request, int channelId, int pageSize) {
 		Channel channel = getChannelById(channelId);
+		if (channel.getUser().getId() != jwtUtil.getUserByRequest(request).getId()) {
+			throw new ChannelNotFoundException("Not found");
+		}
 		Pageable sortingAndPagination = 
 				  PageRequest.of(0, pageSize == 0 ? 10 : pageSize , Sort.by("createdAt").descending());
 		List<Feed> feeds = feedRepository.findByChannelId(channelId, sortingAndPagination);
@@ -74,6 +86,14 @@ public class ChannelService {
 		return response;
 	}
 
-	
+	public Channel updateChannelsUser(int channelId, int userId) {
+		Channel channel = getChannelById(channelId);
+		User user = null;
+		if (userId > 0) {
+			user = userDetailsService.getUserByUserId(userId);
+		}
+		channel.setUser(user);
+		return channelRepository.save(channel);
+	}
 
 }

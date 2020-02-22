@@ -1,17 +1,34 @@
 package com.amith.cms.models;
 
-import javax.persistence.*;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "User")
+@SequenceGenerator(name="seq", initialValue=4, allocationSize=1)
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="seq")
     private int id;
     private String username;
     private String password;
+    private String firstName;
+    private String lastName;
     private boolean active;
     private String roles;
+    
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name="user")
+    private Set<Channel> channels;
 
     public int getId() {
         return id;
@@ -52,4 +69,29 @@ public class User {
     public void setRoles(String roles) {
         this.roles = roles;
     }
+
+	public Set<Channel> getChannels() {
+		return channels;
+	}
+
+	public void setChannels(Set<Channel> channels) {
+		this.channels = channels;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+    
 }

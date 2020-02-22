@@ -43,10 +43,11 @@ public class MyWebSecurityAdaptor extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf().disable()
-				.authorizeRequests().antMatchers("/authenticate").permitAll()
-				.anyRequest().authenticated()
-				.and()
-				.exceptionHandling()
+				.authorizeRequests()
+				.antMatchers("/admin/**").hasRole("ADMIN")
+				.antMatchers("/bot/**").hasAnyRole("ADMIN", "BOT")
+				.antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
+				.antMatchers("/").permitAll()
 				.and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

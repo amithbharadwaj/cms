@@ -3,18 +3,29 @@ package com.amith.cms.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import com.amith.cms.models.User;
+import com.amith.cms.repository.UserRepository;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Service
 public class JwtUtil {
 
     private String SECRET_KEY = "secret";
+    
+	@Autowired
+    private UserRepository userRepository;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -51,5 +62,21 @@ public class JwtUtil {
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+    
+    public User getUserByRequest(HttpServletRequest request) {
+    	final String authorizationHeader = request.getHeader("Authorization");
+
+    	User user = null;
+        String username = null;
+        String jwt = null;
+
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            jwt = authorizationHeader.substring(7);
+            username = extractUsername(jwt);
+            Optional<User> opUser = userRepository.findByUsername(username);
+            user = opUser.isPresent() ? opUser.get() : null;
+        }
+        return user;
     }
 }

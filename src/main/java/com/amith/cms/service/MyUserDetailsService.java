@@ -26,5 +26,18 @@ public class MyUserDetailsService implements UserDetailsService {
 
         return user.map(MyUserDetails::new).get();
 	}
+	
+	public User registerUser(User user) {
+		user.setActive(true);
+		user.setRoles("ROLE_USER");
+        return userRepository.save(user);
+	}
+	
+	public User getUserByUserId(int userId) throws UsernameNotFoundException {
+		Optional<User> user =  userRepository.findById(userId);
+		user.orElseThrow(() -> new UsernameNotFoundException("Not found ID: " + userId));
+		
+        return user.get();
+	}
 
 }
