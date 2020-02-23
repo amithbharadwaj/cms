@@ -6,8 +6,6 @@
       </encoder>
    </appender>
    
-   <logger name="org.springframework.web" level="DEBUG" />
-   
    <appender name = "FILE" class = "ch.qos.logback.core.FileAppender">
       <File>D:\ums.log</File>
       <encoder>

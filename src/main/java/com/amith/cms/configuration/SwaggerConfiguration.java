@@ -1,6 +1,6 @@
 package com.amith.cms.configuration;
 
-/*import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -19,7 +19,7 @@ public class SwaggerConfiguration {
 				.build(); 
 	}
 	 
-}*/
+}
 
 
-public class SwaggerConfiguration {}
+/*public class SwaggerConfiguration {}*/
