@@ -85,6 +85,12 @@ public class ChannelService {
 		response.setFeeds(feeds);
 		return response;
 	}
+	
+	public List<Channel> getChannelByUser(int userId, int pageSize) {
+		Pageable sortingAndPagination = 
+				  PageRequest.of(0, pageSize == 0 ? 10 : pageSize , Sort.by("createdAt").descending());
+		return channelRepository.findByUser(userId, sortingAndPagination);
+	}
 
 	public Channel updateChannelsUser(int channelId, int userId) {
 		Channel channel = getChannelById(channelId);

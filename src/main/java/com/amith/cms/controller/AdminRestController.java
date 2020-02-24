@@ -51,8 +51,8 @@ public class AdminRestController {
 		return channelService.updateChannelsUser(channelId, userId);
 	}
 	
-	@GetMapping("/user/{userId}")
-	public User getUserById(@PathVariable("userId") int userId) {
-		return userDetailsService.getUserByUserId(userId);
+	@PostMapping("/user")
+	public User getUser(@RequestBody User user) {
+		return userDetailsService.getUser(user);
 	}
 }
