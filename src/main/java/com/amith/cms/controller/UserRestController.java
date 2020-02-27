@@ -29,21 +29,23 @@ public class UserRestController {
 	
 	@GetMapping("/channels/{channelId}/feeds")
 	public Response getChannelFeeds(HttpServletRequest request,
-			@PathVariable("channelId") int channelId, 
+			@PathVariable("channelId") int channelId,
+			@RequestParam("pageNo") int pageNo,
 			@RequestParam("pageSize") int pageSize) {
-		return channelService.getChannelFeeds(request, channelId, pageSize);
+		return channelService.getChannelFeeds(request, channelId, pageNo, pageSize);
 	}
 	
-	@GetMapping("/")
+	@GetMapping("")
 	public User getUser(HttpServletRequest request) {
 		return jwtUtil.getUserByRequest(request);
 	}
 	
 	@GetMapping("/channels")
 	public List<Channel> getUserChannels(HttpServletRequest request,
+			@RequestParam("pageNo") int pageNo,
 			@RequestParam("pageSize") int pageSize) {
 		User user = jwtUtil.getUserByRequest(request);
-		return channelService.getChannelByUser(user.getId(), pageSize);
+		return channelService.getChannelByUser(user, pageNo, pageSize);
 	}
 	
 }

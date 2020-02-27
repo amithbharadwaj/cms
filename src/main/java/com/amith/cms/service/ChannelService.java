@@ -72,13 +72,13 @@ public class ChannelService {
 		return feed1;
 	}
 
-	public Response getChannelFeeds(HttpServletRequest request, int channelId, int pageSize) {
+	public Response getChannelFeeds(HttpServletRequest request, int channelId, int pageNo, int pageSize) {
 		Channel channel = getChannelById(channelId);
 		if (channel.getUser().getId() != jwtUtil.getUserByRequest(request).getId()) {
 			throw new ChannelNotFoundException("Not found");
 		}
 		Pageable sortingAndPagination = 
-				  PageRequest.of(0, pageSize == 0 ? 10 : pageSize , Sort.by("createdAt").descending());
+				  PageRequest.of(pageNo, pageSize == 0 ? 10 : pageSize , Sort.by("createdAt").descending());
 		List<Feed> feeds = feedRepository.findByChannelId(channelId, sortingAndPagination);
 		Response response = new Response();
 		response.setChannel(channel);
@@ -86,10 +86,10 @@ public class ChannelService {
 		return response;
 	}
 	
-	public List<Channel> getChannelByUser(int userId, int pageSize) {
+	public List<Channel> getChannelByUser(User user, int pageNo, int pageSize) {
 		Pageable sortingAndPagination = 
-				  PageRequest.of(0, pageSize == 0 ? 10 : pageSize , Sort.by("createdAt").descending());
-		return channelRepository.findByUser(userId, sortingAndPagination);
+				  PageRequest.of(pageNo, pageSize == 0 ? 10 : pageSize , Sort.by("createdAt").descending());
+		return channelRepository.findByUser(user, sortingAndPagination);
 	}
 
 	public Channel updateChannelsUser(int channelId, int userId) {
