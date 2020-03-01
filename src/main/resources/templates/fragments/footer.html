@@ -1,29 +1,50 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-	
+
 </head>
 <body>
-<div th:fragment="footer">
+	<div th:fragment="footer">
 
-    <div class="container">
-    	<div class="row">
-    		</br>
-    	</div>
-    	<div class="row">
-        <footer>
-	        <!-- this is footer -->
-	        &copy; 2020 By Pradeep
-	            <span sec:authorize="isAuthenticated()">
-	                | Logged user: <span sec:authentication="name"></span> |
-	                Roles: <span sec:authentication="principal.authorities"></span> |
-	                <a th:href="@{/logout}">Sign Out</a>
-	            </span>
-	            
-        </footer>
-        </div>
-    </div>
+		<footer> 
+			<div class="container-fluid padding">
+				<div class="row text-center">
+					<div class="col-md-4">
+						<hr class="light">
+						<h5> First Col</h5>
+						<hr class="light">
+						<p>999-999-9999</p>
+						<p>999-999-9999</p>
+						<p>999-999-9999</p>
+						<p>999-999-9999</p>
+					</div>
+					<div class="col-md-4">
+						<hr class="light">
+						<h5> First Col</h5>
+						<hr class="light">
+						<p>999-999-9999</p>
+						<p>999-999-9999</p>
+						<p>999-999-9999</p>
+						<p>999-999-9999</p>
+					</div>
+					<div class="col-md-4">
+						<hr class="light">
+						<h5> First Col</h5>
+						<hr class="light">
+						<p>999-999-9999</p>
+						<p>999-999-9999</p>
+						<p>999-999-9999</p>
+						<p>999-999-9999</p>
+					</div>
+					<div class="col-12">
+						<hr class="light">
+						<h5> &copy; 2020 by pradeep</h5>
+					</div>
+				</div>
+			</div>
+		</footer>
 
-</div>
+	</div>
 </body>
 </html>
