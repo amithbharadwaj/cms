@@ -16,9 +16,11 @@
 	 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+		<script type="text/javascript" th:src="@{/js/app.js}"></script>
 	</div>
 </head>
-<body>
+<body ng-app="myApp">
 <div th:fragment="header">
     <!-- this is header -->
     <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
@@ -26,23 +28,29 @@
             <a class="navbar-brand" href="#">
             	<img alt="" th:src="@{/images/logo.jpg}" width="200" height="100">
             </a>
-            <button class="navbar-toggler" type="button" data-toggler="collapse" data-target="#navbarResponsive">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
             	<span class="navbar-toggler-icon">
             	</span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav ml-auto">
+            <div class="collapse navbar-collapse" id="navbarResponsive" ng-controller="Authentication">
+				<!-- <ul class="navbar-nav ml-auto">
 					<li class="nav-item active">
 						<a class="nav-link" th:href="@{/}">Home</a>
 				     </li>
 				     <li class="nav-item">
 				        <a class="nav-link" th:href="@{/}">Home</a>
 				     </li>
-				</ul> 
-				<ul class="navbar-nav">
-					<a class="nav-link" th:href="@{/login}">Login</a>
-			        <a class="nav-link" th:href="@{/Register}">Register</a>
-			        <a class="nav-link" th:href="@{/logOut}">LogOut</a>
+				</ul>  -->
+				<ul class="navbar-nav ml-auto">
+					<li ng-hide="isLoggedIn" class="nav-item active">
+						<a class="nav-link" th:href="@{/}">Login</a>
+					</li>
+					<li ng-hide="isLoggedIn" class="nav-item">
+			        	<a class="nav-link" th:href="@{/registration}">Registration</a>
+			        </li>
+			        <li ng-show="isLoggedIn" class="nav-item">	
+			        	<a class="nav-link" th:href="@{/logOut}">LogOut</a>
+			        </li>
 				</ul>
             </div>
         </div>
