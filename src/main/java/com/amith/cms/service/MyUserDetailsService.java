@@ -17,7 +17,7 @@ import com.amith.cms.repository.UserRepository;
 public class MyUserDetailsService implements UserDetailsService {
 	
 	@Autowired
-    private UserRepository userRepository;
+	public UserRepository userRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {

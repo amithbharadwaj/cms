@@ -11,11 +11,20 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class ErrorHandler extends ResponseEntityExceptionHandler {
 	
 	@ExceptionHandler(ChannelNotFoundException.class)
-	public ResponseEntity<ApplicationError> handleUserNotFoundException(
+	public ResponseEntity<ApplicationError> handleChannelNotFoundException(
 			ChannelNotFoundException exception, WebRequest webRequest) {
 		ApplicationError applicationError = new ApplicationError();
 		applicationError.setCode(101);
 		applicationError.setMessage(exception.getMessage());
 		return new ResponseEntity<>(applicationError, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(UserNameExistsException.class)
+	public ResponseEntity<ApplicationError> handleUserNameExistsException(
+			UserNameExistsException exception, WebRequest webRequest) {
+		ApplicationError applicationError = new ApplicationError();
+		applicationError.setCode(101);
+		applicationError.setMessage(exception.getMessage());
+		return new ResponseEntity<>(applicationError, HttpStatus.CONFLICT);
 	}
 }

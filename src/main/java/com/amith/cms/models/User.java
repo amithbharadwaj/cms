@@ -2,6 +2,7 @@ package com.amith.cms.models;
 
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,6 +20,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="seq")
     private int id;
+    @Column(unique=true)
     private String username;
     private String password;
     private String firstName;

@@ -13,16 +13,18 @@ app.controller('Login', ['$scope', function($scope) {
 	}
 }]);
 
-app.controller('Registration', ['$scope','$http', function($scope, $http) {
+app.controller('Registration', function($scope, $http, $window) {
 	$scope.form = {}
+	$scope.nameReg=/^[a-zA-Z]/;
+	$scope.pwReg=/^[a-zA-Z]\w{3,14}$/; 
 	
 	$scope.register = function() {
-		this.$http.post('/register', JSON.stringify(this.form))
+		$http.post('/register', JSON.stringify(this.form))
 			.success(function (data, status, headers, config) {
-				$location.path("/login?regSuccess=true");
+				$window.location.href = "/?regSuccess=true";
 			}).error(function (data, status, headers, config) {
-				$location.path("/register?error=true");
+				$window.location.href = "/registration?error=true";
 			});
 		$scope.form = {}
 	}
-}]);
+});
