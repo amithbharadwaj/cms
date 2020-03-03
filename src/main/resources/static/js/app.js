@@ -1,4 +1,4 @@
-var app = angular.module('myApp',[]);
+var app = angular.module('myApp',['userApp','adminApp']);
 
 app.controller('Authentication', function($scope, $http, $window) {
 	$scope.isLoggedIn = false;
@@ -19,21 +19,24 @@ app.controller('Login', function($scope, $http, $window) {
 	$scope.emailReg=/^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9-]+.[a-zA-Z]+(.[a-zA-Z]+)*$/;
 	$scope.error=false;
 	
-	$http.get('/user', {
+	$scope.checkUser = function() {
+		$http.get('/user', {
 	    headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}})
-		.success(function (data, status, headers, config) {
+			.success(function (data, status, headers, config) {
 			if (data.roles == 'ROLE_USER') {
 				$window.location.href = "/userHome";
 			} else if (data.roles == 'ROLE_ADMIN') {
 				$window.location.href = "/adminHome";
 			} 
 		});
+	}
+	$scope.checkUser();
 	
 	$scope.authenticate = function() {
 		$http.post('/authenticate', JSON.stringify(this.form))
 			.success(function (data, status, headers, config) {
 				localStorage.setItem('token', data.jwt);
-				$window.location.href = "/userHome";
+				$scope.checkUser();
 			}).error(function (data, status, headers, config) {
 				$scope.error=true;
 				$('.alert').text(data.message)
