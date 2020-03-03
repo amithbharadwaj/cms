@@ -15,7 +15,7 @@ app.controller('Login', ['$scope', function($scope) {
 
 app.controller('Registration', function($scope, $http, $window) {
 	$scope.form = {}
-	$scope.nameReg=/^[a-zA-Z]/;
+	$scope.nameReg=/[a-zA-Z]+/;
 	$scope.pwReg=/^[a-zA-Z]\w{3,14}$/; 
 	
 	$scope.register = function() {
