@@ -21,9 +21,8 @@
           <div class="card-body">
             <form class="form" name="loginForm" ng-controller="Login" ng-submit="loginForm.$valid && authenticate()" method="post">
               
-               <div th:if="${param.error}">
+               <div ng-show="error">
                    <div class="alert alert-danger">
-                       Invalid username and password.
                    </div>
                </div>
                <div th:if="${param.logout}">
@@ -37,15 +36,25 @@
                    </div>
                </div>
                
-               <div class="form-group">
-               		 <label>Username</label>
-                   <input type="email" name="username" id="username" class="form-control input-lg" ng-model="form.username"
-                          placeholder="UserName" autofocus="true" required/>
-               </div>
-               <div class="form-group">
-               		 <label>Password</label>
-                   <input type="password" name="password" id="password" class="form-control input-lg" ng-model="form.password"
+                <div class="row">
+               		 <div class="col-md-12 form-group">
+                        <label for="username">Username</label>
+                        <span ng-show="loginForm.username.$touched && loginForm.username.$error" style="color:red"> 
+			                {{handleError(loginForm.username.$error, ' Invalid Email')}}
+			            </span>
+                   		<input type="email" name="username" id="username" class="form-control input-lg"
+                          placeholder="UserName" autofocus="true" required ng-model="form.username" ng-pattern="emailReg" />
+                    </div>
+                </div>
+                <div class="row">
+               	    <div class="col-md-12 form-group">
+               		 	<label for="password">Password</label>
+               		 	<span ng-show="loginForm.password.$touched && loginForm.password.$error.required" style="color:red"> 
+			                (Required)
+			            </span>
+                        <input type="password" name="password" id="password" class="form-control input-lg" ng-model="form.password"
                           placeholder="Password" required/>
+               	    </div>
                </div>
 
                <div class="row">

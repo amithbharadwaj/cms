@@ -53,8 +53,8 @@
 					<li ng-hide="isLoggedIn" class="nav-item">
 			        	<a class="nav-link" th:href="@{/registration}">Registration</a>
 			        </li>
-			        <li ng-show="isLoggedIn" class="nav-item">	
-			        	<a class="nav-link" th:href="@{/logOut}">LogOut</a>
+			        <li ng-show="isLoggedIn" class="nav-item active">	
+			        	<a class="nav-link" href="#" ng-click="logout()">Log Out</a>
 			        </li>
 				</ul>
             </div>

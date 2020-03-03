@@ -1,19 +1,55 @@
 var app = angular.module('myApp',[]);
 
-app.controller('Authentication', ['$scope', function($scope) {
+app.controller('Authentication', function($scope, $http, $window) {
 	$scope.isLoggedIn = false;
-}]);
+	$http.get('/user', {
+	    headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}})
+		.success(function (data, status, headers, config) {
+			$scope.isLoggedIn=true
+		});
+	
+	$scope.logout = function() {
+		localStorage.setItem('token', '');
+		$window.location.href = "/";
+	}
+});
 
-app.controller('Login', ['$scope', function($scope) {
+app.controller('Login', function($scope, $http, $window) {
 	$scope.form = {}
+	$scope.emailReg=/^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9-]+.[a-zA-Z]+(.[a-zA-Z]+)*$/;
+	$scope.error=false;
+	
+	$http.get('/user', {
+	    headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}})
+		.success(function (data, status, headers, config) {
+			if (data.roles == 'ROLE_USER') {
+				$window.location.href = "/userHome";
+			} else if (data.roles == 'ROLE_ADMIN') {
+				$window.location.href = "/adminHome";
+			} 
+		});
 	
 	$scope.authenticate = function() {
-		alert("login success," + JSON.stringify(this.form));
-		$scope.form = {}
+		$http.post('/authenticate', JSON.stringify(this.form))
+			.success(function (data, status, headers, config) {
+				localStorage.setItem('token', data.jwt);
+				$window.location.href = "/userHome";
+			}).error(function (data, status, headers, config) {
+				$scope.error=true;
+				$('.alert').text(data.message)
+			});
 	}
-}]);
+	
+	$scope.handleError = function($error, patternMessage) {
+		if ($error.required) {
+			return " (Required)";
+		} else if ($error.pattern) {
+			return patternMessage;
+		}
+	}
+});
 
-app.controller('Registration', function($scope, $http, $window, $location) {
+app.controller('Registration', function($scope, $http, $window) {
 	$scope.form = {}
 	$scope.nameReg=/^[a-zA-Z]+$/;
 	$scope.emailReg=/^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9-]+.[a-zA-Z]+(.[a-zA-Z]+)*$/;
@@ -23,6 +59,16 @@ app.controller('Registration', function($scope, $http, $window, $location) {
 	$scope.txtMinLn=3;
 	$scope.txtMaxLn=20;
 	$scope.error=false;
+	
+	$http.get('/user', {
+	    headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}})
+		.success(function (data, status, headers, config) {
+			if (data.roles == 'ROLE_USER') {
+				$window.location.href = "/userHome";
+			} else if (data.roles == 'ROLE_ADMIN') {
+				$window.location.href = "/adminHome";
+			} 
+		});
 	
 	$scope.register = function() {
 		$http.post('/register', JSON.stringify(this.form))
