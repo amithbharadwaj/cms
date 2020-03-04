@@ -1,0 +1,174 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+</head>
+<body>
+	<div th:fragment="createChannel">
+
+
+<div class="py-5">
+   <div class="row">
+     <div class="col-md-6 col-lg-8 col-xl-8 mx-auto">
+ 
+       <!-- form card login -->
+       <div class="card rounded-1">
+         <div class="card-header">
+           <h3 class="mb-0">Create Channel</h3>
+         </div>
+         <div class="card-body">
+           <form class="form" name="createChannelForm" ng-controller="createChannelController" ng-submit="createChannelForm.$valid && createChannel()" method="post">
+              
+              <div ng-show="error">
+                  <div class="alert alert-danger">
+                  </div>
+              </div>
+              
+              <div ng-show="success">
+                  <div class="alert alert-info">
+                  </div>
+              </div>
+              
+              <div class="row">
+              	  <div class="col-xs-6 col-sm-6 col-md-6 form-group">
+                      <label for="id">Channel Id (Non Modifiable)</label>
+                  </div>
+              	  <div class="col-xs-6 col-sm-6 col-md-6 form-group">
+              	  	 <input type="text" name="id" id="id" class="form-control input-lg"
+                          placeholder="Channel Id" required maxlength="20" ng-model="form.id" ng-pattern="numReg" 
+                          ng-maxlength="idMaxLn" ng-minlength="idMinLn"/>
+             		 <span ng-show="createChannelForm.id.$touched && createChannelForm.id.$error" style="color:red"> 
+	                	{{handleError(createChannelForm.id.$error, ' Numeric Only', idMinLn, idMaxLn)}}
+	            	 </span>
+                 </div>
+              </div>
+              
+               <div class="row">
+               		 <div class="col-md-12 form-group">
+                        <label for="name">Channel Name</label>
+                        <span ng-show="createChannelForm.name.$touched && createChannelForm.name.$error" style="color:red"> 
+			                {{handleError(createChannelForm.name.$error, ' Aphanumeric only', nameMinLn, nameMaxLn)}}
+			            </span>
+                   		<input type="text" name="name" id="name" class="form-control input-lg"
+                          placeholder="Channel Name" required maxlength="20" ng-model="form.name" ng-pattern="txtReg" 
+                          ng-maxlength="nameMaxLn" ng-minlength="nameMinLn"/>
+                    </div>
+                </div>
+                
+                <div class="row">
+               	    <div class="col-md-12 form-group">
+               		 	<label for="name">Channel Description</label>
+                        <span ng-show="createChannelForm.description.$touched && createChannelForm.description.$error" style="color:red"> 
+			                {{handleError(createChannelForm.description.$error, ' Aphanumeric only', nameMinLn, nameMaxLn)}}
+			            </span>
+                   		<textarea  rows="4" cols="90" wrap="hard"  type="text" name="description" id="description" class="form-control input-lg"
+                          placeholder="Channel Description" maxlength="200" ng-model="form.description" ng-pattern="txtReg" 
+                          ng-maxlength="descMaxLn" ng-minlength="descMinLn"></textarea>
+               	    </div>
+               </div>
+              
+              <div class="row">
+              		<div class="col-xs-6 col-sm-6 col-md-6 form-group">
+                       <label for="field1">Field 1</label>
+                       <span ng-show="createChannelForm.field1.$touched && createChannelForm.field1.$error" style="color:red"> 
+		                	{{handleError(createChannelForm.field1.$error, ' Invalid Field Name', fldMinLn, fldMaxLn)}}
+		            	</span>
+                  		<input type="text" name="field1" id="field1" class="form-control input-lg" maxlength="20"
+                        	placeholder="Field 1" ng-model="form.field1" ng-pattern="txtReg" ng-maxlength="fldMaxLn" ng-minlength="fldMinLn"/>
+                  </div>
+              	  <div class="col-xs-6 col-sm-6 col-md-6 form-group">
+              		 	<label for="field2">Field 2</label>
+                        <span ng-show="createChannelForm.field2.$touched && createChannelForm.field2.$error" style="color:red"> 
+		                	{{handleError(createChannelForm.field2.$error, ' Invalid Field Name', fldMinLn, fldMaxLn)}}
+		            	</span>
+                  		<input type="text" name="field2" id="field2" class="form-control input-lg" maxlength="20"
+                        	placeholder="Field 2" ng-model="form.field2" ng-pattern="txtReg" ng-maxlength="fldMaxLn" ng-minlength="fldMinLn"/>
+                 </div>
+              </div>
+              
+              <div class="row">
+              		<div class="col-xs-6 col-sm-6 col-md-6 form-group">
+                       <label for="field3">Field 3</label>
+                       <span ng-show="createChannelForm.field3.$touched && createChannelForm.field3.$error" style="color:red"> 
+		                	{{handleError(createChannelForm.field3.$error, ' Invalid Field Name', fldMinLn, fldMaxLn)}}
+		            	</span>
+                  		<input type="text" name="field3" id="field3" class="form-control input-lg" maxlength="20"
+                        	placeholder="Field 3" ng-model="form.field3" ng-pattern="txtReg" ng-maxlength="fldMaxLn" ng-minlength="fldMinLn"/>
+                  </div>
+              	  <div class="col-xs-6 col-sm-6 col-md-6 form-group">
+              		 	<label for="field4">Field 4</label>
+                        <span ng-show="createChannelForm.field4.$touched && createChannelForm.field4.$error" style="color:red"> 
+		                	{{handleError(createChannelForm.field4.$error, ' Invalid Field Name', fldMinLn, fldMaxLn)}}
+		            	</span>
+                  		<input type="text" name="field4" id="field4" class="form-control input-lg" maxlength="20"
+                        	placeholder="Field 4" ng-model="form.field4" ng-pattern="txtReg" ng-maxlength="fldMaxLn" ng-minlength="fldMinLn"/>
+                 </div>
+              </div>
+              
+              <div class="row">
+              		<div class="col-xs-6 col-sm-6 col-md-6 form-group">
+                       <label for="field5">Field 5</label>
+                       <span ng-show="createChannelForm.field5.$touched && createChannelForm.field5.$error" style="color:red"> 
+		                	{{handleError(createChannelForm.field5.$error, ' Invalid Field Name', fldMinLn, fldMaxLn)}}
+		            	</span>
+                  		<input type="text" name="field5" id="field5" class="form-control input-lg" maxlength="20"
+                        	placeholder="Field 5" ng-model="form.field5" ng-pattern="txtReg" ng-maxlength="fldMaxLn" ng-minlength="fldMinLn"/>
+                  </div>
+              	  <div class="col-xs-6 col-sm-6 col-md-6 form-group">
+              		 	<label for="field6">Field 6</label>
+                        <span ng-show="createChannelForm.field6.$touched && createChannelForm.field6.$error" style="color:red"> 
+		                	{{handleError(createChannelForm.field6.$error, ' Invalid Field Name', fldMinLn, fldMaxLn)}}
+		            	</span>
+                  		<input type="text" name="field6" id="field6" class="form-control input-lg" maxlength="20"
+                        	placeholder="Field 6" ng-model="form.field6" ng-pattern="txtReg" ng-maxlength="fldMaxLn" ng-minlength="fldMinLn"/>
+                 </div>
+              </div>
+              
+              <div class="row">
+              		<div class="col-xs-6 col-sm-6 col-md-6 form-group">
+                       <label for="field1">Field 7</label>
+                       <span ng-show="createChannelForm.field7.$touched && createChannelForm.field7.$error" style="color:red"> 
+		                	{{handleError(createChannelForm.field7.$error, ' Invalid Field Name', fldMinLn, fldMaxLn)}}
+		            	</span>
+                  		<input type="text" name="field7" id="field7" class="form-control input-lg" maxlength="20"
+                        	placeholder="Field 7" ng-model="form.field7" ng-pattern="txtReg" ng-maxlength="fldMaxLn" ng-minlength="fldMinLn"/>
+                  </div>
+              	  <div class="col-xs-6 col-sm-6 col-md-6 form-group">
+              		 	<label for="field8">Field 8</label>
+                        <span ng-show="createChannelForm.field8.$touched && createChannelForm.field8.$error" style="color:red"> 
+		                	{{handleError(createChannelForm.field8.$error, ' Invalid Field Name', fldMinLn, fldMaxLn)}}
+		            	</span>
+                  		<input type="text" name="field8" id="field8" class="form-control input-lg" maxlength="20"
+                        	placeholder="Field 8" ng-model="form.field8" ng-pattern="txtReg" ng-maxlength="fldMaxLn" ng-minlength="fldMinLn"/>
+                 </div>
+              </div>
+              
+              
+              
+              <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-6 py-2">
+                      <input type="submit" class="btn btn-lg btn-primary btn-block" value="Create Channel"/>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6 py-2">
+                  	<a class="btn btn-lg btn-dark btn-block" th:href="@{/adminHome}">Cancel</a>
+                  </div>
+              </div>
+             
+           </form>
+         </div>
+         <!--/card-block-->
+       </div>
+       <!-- /form card login -->
+ 
+     </div>
+ 
+ 
+   </div>
+ </div>
+ 
+ 
+ 
+ </div>
+</body>
+</html>

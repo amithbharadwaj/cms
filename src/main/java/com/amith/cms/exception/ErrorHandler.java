@@ -27,4 +27,13 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
 		applicationError.setMessage(exception.getMessage());
 		return new ResponseEntity<>(applicationError, HttpStatus.CONFLICT);
 	}
+	
+	@ExceptionHandler(ChannelExistsException.class)
+	public ResponseEntity<ApplicationError> handleChannelExistsException(
+			ChannelExistsException exception, WebRequest webRequest) {
+		ApplicationError applicationError = new ApplicationError();
+		applicationError.setCode(101);
+		applicationError.setMessage(exception.getMessage());
+		return new ResponseEntity<>(applicationError, HttpStatus.CONFLICT);
+	}
 }

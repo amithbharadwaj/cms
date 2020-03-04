@@ -12,7 +12,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.amith.cms.exception.ChannelExistsException;
 import com.amith.cms.exception.ChannelNotFoundException;
+import com.amith.cms.exception.UserNameExistsException;
 import com.amith.cms.models.Channel;
 import com.amith.cms.models.Feed;
 import com.amith.cms.models.Response;
@@ -43,6 +45,10 @@ public class ChannelService {
 	}
 	
 	public Channel addChannel(Channel channel) {
+		Optional<Channel> optionalChannel = channelRepository.findById(channel.getId());
+		if (optionalChannel.isPresent())
+			throw new ChannelExistsException("Channel already Exists With the ID:" + channel.getId());
+		
 		channel.setCreatedAt(new Date());
 		channel.setUpdatedAt(new Date());
 		channel.setLastEntryId(0);
