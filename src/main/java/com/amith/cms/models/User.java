@@ -13,19 +13,34 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 @Entity
-@Table(name = "User")
+@Table(name = "user_details")
 @SequenceGenerator(name="seq", initialValue=4, allocationSize=1)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="seq")
     private int id;
-    @Column(unique=true)
+    
+    @Column(name = "user_name", nullable = false, unique=true)
     private String username;
+    
+    @JsonProperty(access = Access.WRITE_ONLY)
+    @Column(name = "password", nullable = false)
     private String password;
+    
+    @Column(name = "first_name", nullable = false)
     private String firstName;
+    
+    @Column(name = "last_name", nullable = false)
     private String lastName;
+    
+    @Column(name = "active", nullable = false)
     private boolean active;
+    
+    @Column(name = "roles")
     private String roles;
     
     @OneToMany(fetch = FetchType.LAZY)
