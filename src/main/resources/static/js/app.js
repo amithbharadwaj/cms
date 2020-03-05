@@ -41,7 +41,7 @@ app.controller('Login', function($scope, $http, $window) {
 				$scope.checkUser();
 			}).error(function (data, status, headers, config) {
 				$scope.error=true;
-				$('.alert').text(data.message)
+				$('.alert-danger').html('<i class="fas fa-times-circle"></i>' + ' Invalid Username and Password');
 			});
 	}
 	
@@ -81,7 +81,7 @@ app.controller('Registration', function($scope, $http, $window) {
 				$window.location.href = "/?regSuccess=true";
 			}).error(function (data, status, headers, config) {
 				$scope.error=true;
-				$('.alert').text(data.message)
+				$('.alert-danger').html('<i class="fas fa-times-circle"></i>' + ' ' + data.message)
 			});
 	}
 	

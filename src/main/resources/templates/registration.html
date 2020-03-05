@@ -15,7 +15,7 @@
         <!-- form card login -->
         <div class="card rounded-1">
           <div class="card-header">
-            <h3 class="mb-0">Registration</h3>
+            <h3 class="mb-0"><i class="fas fa-clipboard-list"></i>     Registration</h3>
           </div>
           <div class="card-body">
             <form class="form" name="registerForm" ng-controller="Registration" ng-submit="registerForm.$valid && register()" method="post">
@@ -31,18 +31,28 @@
                        <span ng-show="registerForm.firstName.$touched && registerForm.firstName.$error" style="color:red"> 
 			                {{handleError(registerForm.firstName.$error, ' Alphabets Only', txtMinLn, txtMaxLn)}}
 			           </span>
-                   	   <input type="text" name="firstName" id="firstName" class="form-control input-lg"
-                          placeholder="FirstName" autofocus="true" required maxlength="20"
-                          ng-model="form.firstName" ng-pattern="nameReg" ng-maxlength="txtMaxLn" ng-minlength="txtMinLn"/>
+			           <div class="input-group">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
+						  </div>
+	                   	   <input type="text" name="firstName" id="firstName" class="form-control input-lg"
+	                          placeholder="FirstName" autofocus="true" required maxlength="20"
+	                          ng-model="form.firstName" ng-pattern="nameReg" ng-maxlength="txtMaxLn" ng-minlength="txtMinLn"/>
+                        </div>
                    </div>
                	   <div class="col-xs-6 col-sm-6 col-md-6 form-group">
                		 	<label for="lastName">LastName</label>
                		 	<span ng-show="registerForm.lastName.$touched && registerForm.lastName.$error" style="color:red"> 
 			                {{handleError(registerForm.lastName.$error, ' Alphabets Only', txtMinLn, txtMaxLn)}}
 			            </span>
-                   		<input type="text" name="lastName" id="lastName" class="form-control input-lg"
-                          placeholder="LastName" required maxlength="20" ng-model="form.lastName" ng-pattern="nameReg" 
-                          ng-maxlength="txtMaxLn" ng-minlength="txtMinLn"/>
+			            <div class="input-group">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
+						  </div>
+	                   		<input type="text" name="lastName" id="lastName" class="form-control input-lg"
+	                          placeholder="LastName" required maxlength="20" ng-model="form.lastName" ng-pattern="nameReg" 
+	                          ng-maxlength="txtMaxLn" ng-minlength="txtMinLn"/>
+	                    </div>
                   </div>
                </div>
                
@@ -52,17 +62,27 @@
                         <span ng-show="registerForm.username.$touched && registerForm.username.$error" style="color:red"> 
 			                {{handleError(registerForm.username.$error, ' Invalid Email')}}
 			            </span>
-                   		<input type="email" name="username" id="username" class="form-control input-lg"
-                          placeholder="UserName" required ng-model="form.username" ng-pattern="emailReg" />
+			            <div class="input-group">
+							  <div class="input-group-prepend">
+							    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+							  </div>
+	                   		<input type="email" name="username" id="username" class="form-control input-lg"
+	                          placeholder="UserName" required ng-model="form.username" ng-pattern="emailReg" />
+	                     </div>
                    </div>
                	   <div class="col-xs-6 col-sm-6 col-md-6 form-group">
                		 	<label for="password">Password</label>
                		 	<span ng-show="registerForm.password.$touched && registerForm.password.$error" style="color:red"> 
 			                {{handleError(registerForm.password.$error, ' AlphaNumeric + .#$', pwMinLn, pwMaxLn)}}
 			            </span>
-                   		<input type="password" name="password" id="password" class="form-control input-lg"
-                          placeholder="Password" required maxlength="20" ng-model="form.password" ng-pattern="pwReg" 
-                          ng-maxlength="pwMaxLn" ng-minlength="pwMinLn" /> 
+			            <div class="input-group">
+							  <div class="input-group-prepend">
+							    <span class="input-group-text"><i class="fas fa-unlock-alt"></i></span>
+							  </div>
+	                   		<input type="password" name="password" id="password" class="form-control input-lg"
+	                          placeholder="Password" required maxlength="20" ng-model="form.password" ng-pattern="pwReg" 
+	                          ng-maxlength="pwMaxLn" ng-minlength="pwMinLn" />
+                        </div>
                           
                         <a class="btn btn-link" data-toggle="collapse" href="#passwordReq" role="button" aria-expanded="false" aria-controls="passwordReq">
 				    		Password requirements

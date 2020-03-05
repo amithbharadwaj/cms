@@ -61,7 +61,7 @@ public class AuthenticationRestController {
 	public User addUser(@RequestBody User user) {
 		Optional<User> optionalUser = userDetailsService.userRepository.findByUsername(user.getUsername());
 		if (optionalUser.isPresent())
-			throw new UserNameExistsException("UserName already taken, Please choose some other username");
+			throw new UserNameExistsException("UserName already taken, Please choose different username");
 		
 		return userDetailsService.registerUser(user);
 	}
