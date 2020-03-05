@@ -243,17 +243,15 @@ app.controller('updateChannelController', function($location, $scope, $http, $wi
 
 
 app.controller('updateChannelUserController', function($location, $scope, $http, $window) {
-	$scope.form = {}
-	$scope.txtReg=/^[a-zA-Z0-9\s]+$/;
-	$scope.nameMinLn=8;
-	$scope.nameMaxLn=20;
-	$scope.descMinLn=0;
-	$scope.descMaxLn=200;
-	$scope.fldMinLn=3;
-	$scope.fldMaxLn=20;
+	$scope.updateChannelUserForm = {}
+	$scope.numReg=/^[0-9]+$/;
+	$scope.nameReg=/^[a-zA-Z]+$/;
+	$scope.emailReg=/^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9-]+.[a-zA-Z]+(.[a-zA-Z]+)*$/;
+	$scope.txtMinLn=3;
+	$scope.txtMaxLn=20;
 	$scope.error=false;
-	$scope.success=false;
-	$scope.channelId='';
+	$scope.users=null;
+	$scope.userId='';
 	
 	$http.get('/user', {
 	    headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}})
@@ -269,43 +267,45 @@ app.controller('updateChannelUserController', function($location, $scope, $http,
 		$window.location.href = "/adminHome";
 	}
 	
-	$http.get('/admin/channels/' + $scope.channelId, {
-	    headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}})
-		.success(function (data, status, headers, config) {
-			$scope.form.name=data.name;
-			$scope.form.description=data.description;
-			$scope.form.field1=data.field1;
-			$scope.form.field2=data.field2;
-			$scope.form.field3=data.field3;
-			$scope.form.field4=data.field4;
-			$scope.form.field5=data.field5;
-			$scope.form.field6=data.field6;
-			$scope.form.field7=data.field7;
-			$scope.form.field8=data.field8;
-		}).error(function (data, status, headers, config) {
-			$scope.error=true;
-			$('.alert-danger').text(data.message);
-			$window.scrollTo(0, 0);
-		});
-	
-	$scope.updateChannel = function() {
+	$scope.searchUserOrUpdateChannel = function() {
 		$scope.error=false;
-		$scope.success=false;
-		$http.put('/admin/channels/' + $scope.channelId, JSON.stringify(this.form),
-				{headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}})
-			.success(function (data, status, headers, config) {
-				$scope.success=true;
-				$('.alert-info').text('Channel successfully with ID:' + data.id + ' has been successfully updated');
-				$window.scrollTo(0, 0);
-				$scope.updateChannelForm.$setUntouched();
-			}).error(function (data, status, headers, config) {
-				$scope.error=true;
-				$('.alert-danger').text(data.message);
-				$window.scrollTo(0, 0);
-			});
+		if ($scope.updateChannelUserForm.userId == null || $scope.updateChannelUserForm.userId == '') {
+			$http.post('/admin/users', JSON.stringify(this.form),
+					{headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}})
+				.success(function (data, status, headers, config) {
+					$scope.users=data;
+				}).error(function (data, status, headers, config) {
+					$scope.error=true;
+					$('.alert-danger').text(data.message);
+					$window.scrollTo(0, 0);
+				});
+			
+		} else {
+			$scope.userId=$scope.updateChannelUserForm.userId.$viewValue;
+			$http.put('/admin/channels/' + $scope.channelId + '/user/' + $scope.userId,{},
+					{headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}})
+				.success(function (data, status, headers, config) {
+					$scope.success=true;
+					$('.alert-info').text('User:' + $scope.userId + ' updated to channel:' + $scope.channelId + ' successfully');
+					$scope.users=null;
+					$scope.userId=null;
+					$scope.updateChannelUserForm.$setUntouched();
+					$scope.form = {}
+					$window.scrollTo(0, 0);
+				}).error(function (data, status, headers, config) {
+					$scope.error=true;
+					if (data == null || data == '') {
+						$('.alert-danger').text('Please choose a user from the list');
+					} else {
+						$('.alert-danger').text(data.message);
+					}
+					$window.scrollTo(0, 0);
+				});
+		}
+		
 	}
 	
-	$scope.cancelUpdateChannel = function() {
+	$scope.cancelSearchUserChannel = function() {
 		$window.location.href='/adminHome';
 	}
 	
@@ -326,3 +326,4 @@ app.controller('updateChannelUserController', function($location, $scope, $http,
 	}
 	
 });
+

@@ -2,10 +2,12 @@ var app = angular.module('myApp',['userApp','adminApp']);
 
 app.controller('Authentication', function($scope, $http, $window) {
 	$scope.isLoggedIn = false;
+	$scope.firstName = false;
 	$http.get('/user', {
 	    headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}})
 		.success(function (data, status, headers, config) {
 			$scope.isLoggedIn=true
+			$scope.firstName=data.firstName;
 		});
 	
 	$scope.logout = function() {

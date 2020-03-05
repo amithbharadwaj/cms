@@ -2,6 +2,7 @@ package com.amith.cms.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -19,6 +20,24 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<>(applicationError, HttpStatus.NOT_FOUND);
 	}
 	
+	@ExceptionHandler(ChannelExistsException.class)
+	public ResponseEntity<ApplicationError> handleChannelExistsException(
+			ChannelExistsException exception, WebRequest webRequest) {
+		ApplicationError applicationError = new ApplicationError();
+		applicationError.setCode(101);
+		applicationError.setMessage(exception.getMessage());
+		return new ResponseEntity<>(applicationError, HttpStatus.CONFLICT);
+	}
+	
+	@ExceptionHandler(UsernameNotFoundException.class)
+	public ResponseEntity<ApplicationError> handleUsernameNotFoundException(
+			UsernameNotFoundException exception, WebRequest webRequest) {
+		ApplicationError applicationError = new ApplicationError();
+		applicationError.setCode(101);
+		applicationError.setMessage(exception.getMessage());
+		return new ResponseEntity<>(applicationError, HttpStatus.NOT_FOUND);
+	}
+	
 	@ExceptionHandler(UserNameExistsException.class)
 	public ResponseEntity<ApplicationError> handleUserNameExistsException(
 			UserNameExistsException exception, WebRequest webRequest) {
@@ -28,12 +47,5 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<>(applicationError, HttpStatus.CONFLICT);
 	}
 	
-	@ExceptionHandler(ChannelExistsException.class)
-	public ResponseEntity<ApplicationError> handleChannelExistsException(
-			ChannelExistsException exception, WebRequest webRequest) {
-		ApplicationError applicationError = new ApplicationError();
-		applicationError.setCode(101);
-		applicationError.setMessage(exception.getMessage());
-		return new ResponseEntity<>(applicationError, HttpStatus.CONFLICT);
-	}
+	
 }

@@ -11,7 +11,6 @@ public class FrontEndRestController {
 
     @GetMapping("/{pageName}")
     public String index(@PathVariable("pageName") String pageName) {
-    	System.out.print("FrontEndRestController: pageName="+pageName);
     	if (StringUtils.isBlank(pageName)) {
     		return "index";
     	} else {
