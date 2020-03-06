@@ -11,15 +11,37 @@
 
 <div class="py-5">
     <div class="row">
-      <div class="col-md-6 mx-auto">
+      <div class="col-md-6 mx-auto" ng-controller="userChannels" >
   
         <!-- form card login -->
         <div class="card rounded-0">
           <div class="card-header">
-            <h3 class="mb-0">{{"Welcome to the Jungle"}}</h3>
+            <h3 class="mb-0">List of Channels</h3>
           </div>
           <div class="card-body">
-            
+          	<div ng-hide="channels">
+          		<div class="alert alert-danger">
+          			<i class="fas fa-times-circle"></i> You dont have any channels configured. Kindly contact you device provider.
+                </div>
+          	</div>
+          
+            <div ng-show="channels">
+            	<div ng-repeat="channel in channels" class="card card-body rounded-0">
+            		<div class="row">
+	            		<div class="col-md-2">
+	            			<span><i class="fas fa-tv fa-4x py-3"></i></span>
+	            		</div>
+	            		<div class="col-md-7">
+	            			<b>Channel Id:</b> {{channel.id}} </br>
+	            			<b>Channel Name:</b>  {{channel.name}} </br>
+	            			<b>Channel Description:</b>  {{channel.description}}
+	            		</div>
+	            		<div class="col-md-3">
+	            			<button type="button" class="btn btn-lg btn-info btn-block py-3" ng-click="viewChannelFeeds(channel.id)">View Details</button>
+	            		</div>
+            		</div>
+            	</div>
+            </div>
           </div>
           <!--/card-block-->
         </div>
