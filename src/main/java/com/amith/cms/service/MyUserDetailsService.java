@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.xml.sax.SAXException;
@@ -35,6 +37,11 @@ public class MyUserDetailsService implements UserDetailsService {
 	}
 	
 	public User registerUser(User user) {
+		PasswordEncoder encoder = new BCryptPasswordEncoder(12);
+		System.out.println("Original password : " + user.getPassword());
+		user.setPassword(encoder.encode(user.getPassword()));
+		System.out.println("Encoded password : " + user.getPassword());
+		
 		user.setActive(true);
 		user.setRoles("ROLE_USER");
         return userRepository.save(user);

@@ -73,11 +73,11 @@
                	   <div class="col-xs-6 col-sm-6 col-md-6 form-group">
                		 	<label for="password">Password</label>
                		 	<span ng-show="registerForm.password.$touched && registerForm.password.$error" style="color:red"> 
-			                {{handleError(registerForm.password.$error, ' AlphaNumeric + .#$', pwMinLn, pwMaxLn)}}
+			                {{handleError(registerForm.password.$error, ' AlphaNumeric plus #$@', pwMinLn, pwMaxLn)}}
 			            </span>
 			            <div class="input-group">
 							  <div class="input-group-prepend">
-							    <span class="input-group-text"><i class="fas fa-unlock-alt"></i></span>
+							    <span class="input-group-text"><i class="fas fa-key"></i></span>
 							  </div>
 	                   		<input type="password" name="password" id="password" class="form-control input-lg"
 	                          placeholder="Password" required maxlength="20" ng-model="form.password" ng-pattern="pwReg" 

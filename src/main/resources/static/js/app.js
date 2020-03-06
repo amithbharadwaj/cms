@@ -58,7 +58,7 @@ app.controller('Registration', function($scope, $http, $window) {
 	$scope.form = {}
 	$scope.nameReg=/^[a-zA-Z]+$/;
 	$scope.emailReg=/^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9-]+.[a-zA-Z]+(.[a-zA-Z]+)*$/;
-	$scope.pwReg=/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.#$%])/;
+	$scope.pwReg=/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[#$@])/;
 	$scope.pwMinLn=8;
 	$scope.pwMaxLn=20;
 	$scope.txtMinLn=3;
