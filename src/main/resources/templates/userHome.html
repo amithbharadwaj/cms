@@ -29,15 +29,15 @@
             	<div ng-repeat="channel in channels" class="card card-body rounded-0">
             		<div class="row">
 	            		<div class="col-md-2">
-	            			<span><i class="fas fa-tv fa-4x py-3"></i></span>
+	            			<span><i class="fas fa-tv fa-3x py-3"></i></span>
 	            		</div>
 	            		<div class="col-md-7">
 	            			<b>Channel Id:</b> {{channel.id}} </br>
 	            			<b>Channel Name:</b>  {{channel.name}} </br>
 	            			<b>Channel Description:</b>  {{channel.description}}
 	            		</div>
-	            		<div class="col-md-3">
-	            			<button type="button" class="btn btn-lg btn-info btn-block py-3" ng-click="viewChannelFeeds(channel.id)">View Details</button>
+	            		<div class="col-md-3 py-3">
+	            			<button type="button" class="btn btn-sm btn-info btn-block " ng-click="viewChannelFeeds(channel.id)">View Details</button>
 	            		</div>
             		</div>
             	</div>

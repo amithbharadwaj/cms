@@ -43,6 +43,7 @@ public class MyWebSecurityAdaptor extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
+		httpSecurity.headers().frameOptions().disable();
 		httpSecurity.csrf().disable()
 				.authorizeRequests()
 				.antMatchers("/admin/**").hasRole("ADMIN")
@@ -54,5 +55,7 @@ public class MyWebSecurityAdaptor extends WebSecurityConfigurerAdapter {
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
 	}
+	
+	
 }
 
