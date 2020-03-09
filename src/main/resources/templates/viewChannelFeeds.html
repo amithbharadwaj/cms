@@ -12,19 +12,37 @@
 
 <base href="/">
 
-<div class="py-5">
+<div class="py-5" ng-controller="viewChannelFeeds">
    <div class="row">
-     <div class="col-md-6 col-lg-8 col-xl-8 mx-auto">
+     <div class="col-md-10 col-lg-10 col-xl-10 mx-auto">
  
        <!-- form card login -->
        <div class="card rounded-1">
          <div class="card-header">
-           <h3 class="mb-0">View Channel Graph</h3>
+         	<div class="row">
+         		<div class="col-md-6">
+	           		<h3>
+	           			<i class="fas fa-chart-line"></i> &nbsp;
+	           			{{feeds.channel.name | uppercase}} ({{feeds.channel.id}})
+	           		</h3>
+	            </div>
+	            <div class="col-md-3">
+	            	<span for="pageSize py-2">View Last:</span>
+	      			<select class="py-1" id="pageSize" name="pageSize" ng-model="pageSize">
+					  <option ng-repeat="x in pageSizeOptions" value="{{x}}">{{x}}</option>
+					</select>
+	      		</div>
+	            <div class="col-md-3">
+	      			<button type="button" class="btn btn-lg btn-info btn-block py-1" ng-click="updateChannelFeeds()">Update Graphs</button>
+	      		</div>
+         	</div>
          </div>
          <div class="card-body">
          	<div class="row">
          		<div class="col-md-12">
-         			
+         			<canvas id="bar" class="chart chart-bar" chart-options = "options1" chart-colors="colors"
+					  chart-data="data" chart-labels="labels" chart-series="series">
+					</canvas>
          		</div>
          	</div>
          </div>

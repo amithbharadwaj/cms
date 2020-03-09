@@ -18,10 +18,10 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(name = "user_details")
-@SequenceGenerator(name="seq", initialValue=4, allocationSize=1)
+@SequenceGenerator(name="userSeq", initialValue=10, allocationSize=1)
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="userSeq")
     private int id;
     
     @Column(name = "user_name", nullable = false, unique=true)

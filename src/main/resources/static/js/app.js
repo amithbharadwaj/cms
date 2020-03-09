@@ -3,12 +3,23 @@ var app = angular.module('myApp',['userApp','adminApp']);
 app.controller('Authentication', function($scope, $http, $window) {
 	$scope.isLoggedIn = false;
 	$scope.firstName = false;
-	$http.get('/user', {
-	    headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}})
-		.success(function (data, status, headers, config) {
-			$scope.isLoggedIn=true
-			$scope.firstName=data.firstName;
-		});
+	
+	if (localStorage.getItem('token') == null || localStorage.getItem('token') == '') {
+		/*if ($window.location.pathname != '/') {
+			$window.location.href = "/";
+		} */
+	} else {
+		$http.get('/user', {
+		    headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}})
+			.success(function (data, status, headers, config) {
+				$scope.isLoggedIn=true
+				$scope.firstName=data.firstName;
+			}).error(function (data, status, headers, config) {
+				if (data.messgage.toLowerCase().includes('jwt expired')) {
+					$scope.logout();
+				} 
+			});
+	}
 	
 	$scope.logout = function() {
 		localStorage.setItem('token', '');

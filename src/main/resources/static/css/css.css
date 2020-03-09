@@ -27,3 +27,5 @@ hr.light{
 	background-color: #d5d5d5;
 	color: #3f3f3f;
 }
+
+.dropdown .dropdown-menu{ max-height:250px; overflow:auto; }

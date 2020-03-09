@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -16,10 +17,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Table(name = "feed_details")
+@SequenceGenerator(name="feedSeq", initialValue=100, allocationSize=1)
 public class Feed {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="feedSeq")
     @JsonProperty("id")
     private Integer id;
 	
