@@ -33,28 +33,39 @@
 </head>
 <body ng-app="myApp">
 <div th:fragment="header">
+
     <!-- this is header -->
     <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-            	<img alt="" th:src="@{/images/logo.jpg}" width="200" height="100">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}">
+            	<img alt="" th:src="@{/images/logo.PNG}" width="200" height="100">
             </a>
+        
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
             	<span class="navbar-toggler-icon">
             	</span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive" ng-controller="Authentication">
-				<!-- <ul class="navbar-nav ml-auto">
-					<li class="nav-item active">
-						<a class="nav-link" th:href="@{/}">Home</a>
+				<ul class="navbar-nav text-big main-nav">
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/services}">Services</a>
 				     </li>
 				     <li class="nav-item">
-				        <a class="nav-link" th:href="@{/}">Home</a>
+				        <a class="nav-link" th:href="@{/features}">Features</a>
 				     </li>
-				</ul>  -->
-				<ul class="navbar-nav ml-auto">
+				     <li class="nav-item">
+				        <a class="nav-link" th:href="@{/goals}">Goals</a>
+				     </li>
+				     <li class="nav-item">
+				        <a class="nav-link" th:href="@{/partners}">Partners</a>
+				     </li>
+				     <li ng-show="isLoggedIn" class="nav-item">
+			        	<a class="nav-link" th:href="@{/login}">Home</a>
+			        </li>
+				</ul>
+				<ul class="navbar-nav ml-auto text-right">
 					<li ng-hide="isLoggedIn" class="nav-item active">
-						<a class="nav-link" th:href="@{/}">Login</a>
+						<a class="nav-link" th:href="@{/login}">Login</a>
 					</li>
 					<li ng-hide="isLoggedIn" class="nav-item active">
 			        	<a class="nav-link" th:href="@{/registration}">Registration</a>

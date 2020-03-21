@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home Page</title>
+    <div th:replace="fragments/header :: header-css"/>
+    
+</head>
+<body ng-app="myApp">
+<div th:replace="fragments/header :: header-js"/>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="py-5">
+    <div class="row">
+      <div class="col-md-10 mx-auto">
+      
+  				<div class="card rounded-0 text-center">
+					<div class="card-header">
+						<h1 class="mb-0">
+							<i class="fas fa-bullseye"></i>
+							Goals
+						</h1>
+					</div>
+					<div class="card-body">
+						<div class="card card-body rounded-0">
+							<div class="row">
+			            		<div class="col-md-6">
+			            			<img alt="vision" th:src="@{/images/vision.jpg}" width="300" height="150">
+			            		</div>
+			            		<div class="col-md-6 py-1">
+			            			<h3>Our Vision</h3>
+									<p>We are to enompass a new breed of applications that are required to work as anticipated without fail, 
+										ever time, in industries like wearables, smart city, smart home, and others.</p>
+			            		</div>
+		            		</div>
+						</div>
+						
+						<br/>
+						
+						<div class="card card-body rounded-0">
+							<div class="row">
+			            		<div class="col-md-6">
+			            			<img alt="vision" th:src="@{/images/business.jpg}" width="300" height="200">
+			            		</div>
+			            		<div class="col-md-6 py-1">
+			            			<h3>Our Bussiness</h3>
+									<p>We're here for those who refuse to settle. Who never stop moving forward. Who continue to search for 
+										new ideas and better experiance to improve their Lifestyle .Because todays hyper-conected world deserves a 
+										technology that is just as progressive, one that adapts to your needs, gives you control, convenence, 
+										safety and security, at your fingertips.</p>
+			            		</div>
+		            		</div>
+						</div>
+					</div>
+					<!--/card-block-->
+				</div>
+        
+    </div>
+  </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

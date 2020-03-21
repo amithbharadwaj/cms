@@ -15,7 +15,7 @@ app.controller('Authentication', function($scope, $http, $window) {
 				$scope.isLoggedIn=true
 				$scope.firstName=data.firstName;
 			}).error(function (data, status, headers, config) {
-				if (data.messgage.toLowerCase().includes('jwt expired')) {
+				if (data.message.toLowerCase().includes('jwt expired')) {
 					$scope.logout();
 				} 
 			});
@@ -94,6 +94,53 @@ app.controller('Registration', function($scope, $http, $window) {
 				$scope.error=true;
 				$('.alert-danger').html('<i class="fas fa-times-circle"></i>' + ' ' + data.message)
 			});
+	}
+	
+	$scope.handleError = function($error, patternMessage) {
+		this.handleError($error, patternMessage, null, null);
+	}
+	
+	$scope.handleError = function($error, patternMessage, minLength, maxLength) {
+		if ($error.required) {
+			return " (Required)";
+		} else if ($error.pattern) {
+			return patternMessage;
+		} else if (minLength && $error.minlength) {
+			return " Minimum Length:" + minLength;
+		} else if (maxLength && $error.maxlength) {
+			return " Maximum Length:" + maxLength;
+		}
+	}
+	
+});
+
+app.controller('ContactUs', function($scope, $http, $window) {
+	$scope.form = {}
+	$scope.nameReg=/^[a-zA-Z]+$/;
+	$scope.emailReg=/^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9-]+.[a-zA-Z]+(.[a-zA-Z]+)*$/;
+	$scope.numReg=/^[0-9]+$/;
+	$scope.txtReg=/^[a-zA-Z0-9\s]+$/;
+	
+	$scope.nameMinLn=8;
+	$scope.nameMaxLn=50;
+	
+	$scope.numMinLn=10;
+	$scope.numMaxLn=10;
+	
+	$scope.txtMinLn=50;
+	$scope.txtMaxLn=200;
+	
+	$scope.error=false;
+	
+	
+	$scope.contact = function() {
+		/*$http.post('/register', JSON.stringify(this.form))
+			.success(function (data, status, headers, config) {
+				$window.location.href = "/?regSuccess=true";
+			}).error(function (data, status, headers, config) {
+				$scope.error=true;
+				$('.alert-danger').html('<i class="fas fa-times-circle"></i>' + ' ' + data.message)
+			});*/
 	}
 	
 	$scope.handleError = function($error, patternMessage) {

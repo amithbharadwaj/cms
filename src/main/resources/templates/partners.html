@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home Page</title>
+    <div th:replace="fragments/header :: header-css"/>
+    
+</head>
+<body ng-app="myApp">
+<div th:replace="fragments/header :: header-js"/>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="py-5">
+    <div class="row">
+      <div class="col-md-10 mx-auto">
+
+				<div class="card rounded-0 text-center">
+					<div class="card-header">
+						<h1 class="mb-0">
+							<i class="fas fa-handshake"></i>
+							Partners
+						</h1>
+					</div>
+					<div class="card-body">
+						<div class="row services">
+							<div class="col-md-6 py-3">
+								<img alt="hiko" th:src="@{/images/hiko.jpg}">
+								<h3>Hiko Gams</h3>
+								<h3>Energy Pvt Ltd</h3>
+							</div>
+							<div class="col-md-6 py-3">
+								<img alt="vit" th:src="@{/images/vit.png}">
+								<h3>Vitvaara</h3>
+								<h3>Electronics</h3>
+							</div>
+						</div>
+					</div>
+					<!--/card-block-->
+				</div>
+
+	 </div>
+  </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

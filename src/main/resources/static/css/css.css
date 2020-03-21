@@ -9,13 +9,19 @@ header{
 	background-color: white;
 	color: black;
 }
-footer{
-	background-color: #3f3f3f;
-	color: #d5d5d5;
-	padding-top: 2rem;
-}
-hr.light{
+
+hr.light{ 
 	border-top: 1px solid #d5d5d5;
+}
+
+.navbar {
+	padding: 5px;
+}
+
+.main-nav li {
+	padding-left: 20px;
+	font-weight:600;
+	font-size:25px;
 }
 
 .nav-tabs .nav-item .active {
@@ -28,4 +34,9 @@ hr.light{
 	color: #3f3f3f;
 }
 
+a {
+	color: #3f3f3f;
+}
+
 .dropdown .dropdown-menu{ max-height:250px; overflow:auto; }
+
