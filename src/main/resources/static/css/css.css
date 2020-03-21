@@ -38,5 +38,8 @@ a {
 	color: #3f3f3f;
 }
 
+.card-body img {
+	max-height: 150px;
+}
 .dropdown .dropdown-menu{ max-height:250px; overflow:auto; }
 
