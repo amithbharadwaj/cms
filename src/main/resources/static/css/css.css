@@ -41,5 +41,29 @@ a {
 .card-body img {
 	max-height: 150px;
 }
+
+#slider h7 {
+	font-size:60px;
+}
+
+#about {
+	padding-top: 50px;
+	padding-bottom: 50px;
+	color: #555;
+}
+
+
+#promo
+{
+	background-image:linear-gradient(rgba(0,0,0,0.9),rgba(0,0,0,0.1)),url(img/promo.jpg);
+	background-size:cover;
+	background-position:center;
+	color:#fff;
+	background-attachment:fixed;
+	text-align:center;
+	padding:100px;
+	font-family:sans-sarif;
+	font-size:38px;
+}
 .dropdown .dropdown-menu{ max-height:250px; overflow:auto; }
 
