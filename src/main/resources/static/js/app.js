@@ -89,7 +89,7 @@ app.controller('Registration', function($scope, $http, $window) {
 	$scope.register = function() {
 		$http.post('/register', JSON.stringify(this.form))
 			.success(function (data, status, headers, config) {
-				$window.location.href = "/?regSuccess=true";
+				$window.location.href = "/login?regSuccess=true";
 			}).error(function (data, status, headers, config) {
 				$scope.error=true;
 				$('.alert-danger').html('<i class="fas fa-times-circle"></i>' + ' ' + data.message)
