@@ -1,3 +1,7 @@
+create database core;
+create user core_user identified by 'NativeS0luti0ns';
+grant all on core.* to core_user;
+
 insert into core.user_details(id, user_name, password, first_name, last_name, active, roles) values (1, 'admin@nativesolutions.com', '$2a$12$fEYdXtclmcXXBxdWJbqvD..0zk.3LOKCRUGJnmluJraMtymzPPRiO', 'admin', 'user' ,true, 'ROLE_ADMIN');
 insert into core.user_details(id, user_name, password, first_name, last_name, active, roles) values (2, 'bot@nativesolutions.com', '$2a$12$fEYdXtclmcXXBxdWJbqvD..0zk.3LOKCRUGJnmluJraMtymzPPRiO', 'bot', 'user' ,true, 'ROLE_BOT');
 insert into core.user_details(id, user_name, password, first_name, last_name, active, roles) values (3, 'user@nativesolutions.com', '$2a$12$fEYdXtclmcXXBxdWJbqvD..0zk.3LOKCRUGJnmluJraMtymzPPRiO', 'Amith', 'Bharadwaj' ,true, 'ROLE_USER');
@@ -5,23 +9,23 @@ insert into core.user_details(id, user_name, password, first_name, last_name, ac
 insert into core.channel_details(id, channel_name, channel_description, field1, field2, field3, user_id) values (12345, 'test channel1 name', 'test channel1 description', 'Channel1 field1', 'Channel1 field2', 'Channel1 field3', 3);
 insert into core.channel_details(id, channel_name, channel_description, field1, field2, field3, user_id) values (12346, 'test channel2 name', 'test channel2 description', 'Channel2 field1', 'Channel2 field2', 'Channel2 field3', 3);
 
-insert into feed_details(id, created_at, channel_id, field1, field2, field3) values (1, timestamp('2019-03-08 12:00:00'), 12345, 90, 100, 101);
-insert into feed_details(id, created_at, channel_id, field1, field2, field3) values (2, timestamp('2019-03-08 12:03:00'), 12345, 91, 104, 101);
-insert into feed_details(id, created_at, channel_id, field1, field2, field3) values (3, timestamp('2019-03-08 12:04:00'), 12345, 92, 105, 101);
-insert into feed_details(id, created_at, channel_id, field1, field2, field3) values (4, timestamp('2019-03-08 12:06:00'), 12345, 93, 108, 101);
-insert into feed_details(id, created_at, channel_id, field1, field2, field3) values (5, timestamp('2019-03-08 12:07:00'), 12345, 100, 120, 101);
-insert into feed_details(id, created_at, channel_id, field1, field2, field3) values (6, timestamp('2019-03-08 12:09:00'), 12345, 120, 140, 101);
-insert into feed_details(id, created_at, channel_id, field1, field2, field3) values (7, timestamp('2019-03-08 12:11:00'), 12345, 93, 105, 101);
-insert into feed_details(id, created_at, channel_id, field1, field2, field3) values (8, timestamp('2019-03-08 12:33:00'), 12345, 99, 105, 101);
-insert into feed_details(id, created_at, channel_id, field1, field2, field3) values (9, timestamp('2019-03-08 12:22:00'), 12345, 101, 160, 101);
+insert into core.feed_details(id, created_at, channel_id, field1, field2, field3) values (1, timestamp('2019-03-08 12:00:00'), 12345, 90, 100, 101);
+insert into core.feed_details(id, created_at, channel_id, field1, field2, field3) values (2, timestamp('2019-03-08 12:03:00'), 12345, 91, 104, 101);
+insert into core.feed_details(id, created_at, channel_id, field1, field2, field3) values (3, timestamp('2019-03-08 12:04:00'), 12345, 92, 105, 101);
+insert into core.feed_details(id, created_at, channel_id, field1, field2, field3) values (4, timestamp('2019-03-08 12:06:00'), 12345, 93, 108, 101);
+insert into core.feed_details(id, created_at, channel_id, field1, field2, field3) values (5, timestamp('2019-03-08 12:07:00'), 12345, 100, 120, 101);
+insert into core.feed_details(id, created_at, channel_id, field1, field2, field3) values (6, timestamp('2019-03-08 12:09:00'), 12345, 120, 140, 101);
+insert into core.feed_details(id, created_at, channel_id, field1, field2, field3) values (7, timestamp('2019-03-08 12:11:00'), 12345, 93, 105, 101);
+insert into core.feed_details(id, created_at, channel_id, field1, field2, field3) values (8, timestamp('2019-03-08 12:33:00'), 12345, 99, 105, 101);
+insert into core.feed_details(id, created_at, channel_id, field1, field2, field3) values (9, timestamp('2019-03-08 12:22:00'), 12345, 101, 160, 101);
 
 
-insert into feed_details(id, created_at, channel_id, field1, field2, field3) values (11, timestamp('2019-03-07 12:00:00'), 12346, 190, 100, 101);
-insert into feed_details(id, created_at, channel_id, field1, field2, field3) values (12, timestamp('2019-03-08 12:03:00'), 12346, 191, 104, 101);
-insert into feed_details(id, created_at, channel_id, field1, field2, field3) values (13, timestamp('2019-03-08 12:04:00'), 12346, 192, 105, 101);
-insert into feed_details(id, created_at, channel_id, field1, field2, field3) values (14, timestamp('2019-03-06 12:06:00'), 12346, 193, 108, 101);
-insert into feed_details(id, created_at, channel_id, field1, field2, field3) values (15, timestamp('2019-03-08 12:07:00'), 12346, 200, 120, 101);
-insert into feed_details(id, created_at, channel_id, field1, field2, field3) values (16, timestamp('2019-03-05 12:09:00'), 12346, 220, 140, 101);
-insert into feed_details(id, created_at, channel_id, field1, field2, field3) values (17, timestamp('2019-03-08 12:11:00'), 12346, 193, 105, 101);
-insert into feed_details(id, created_at, channel_id, field1, field2, field3) values (18, timestamp('2019-03-02 12:33:00'), 12346, 199, 105, 101);
-insert into feed_details(id, created_at, channel_id, field1, field2, field3) values (19, timestamp('2019-03-08 12:22:00'), 12346, 201, 160, 101);
+insert into core.feed_details(id, created_at, channel_id, field1, field2, field3) values (11, timestamp('2019-03-07 12:00:00'), 12346, 190, 100, 101);
+insert into core.feed_details(id, created_at, channel_id, field1, field2, field3) values (12, timestamp('2019-03-08 12:03:00'), 12346, 191, 104, 101);
+insert into core.feed_details(id, created_at, channel_id, field1, field2, field3) values (13, timestamp('2019-03-08 12:04:00'), 12346, 192, 105, 101);
+insert into core.feed_details(id, created_at, channel_id, field1, field2, field3) values (14, timestamp('2019-03-06 12:06:00'), 12346, 193, 108, 101);
+insert into core.feed_details(id, created_at, channel_id, field1, field2, field3) values (15, timestamp('2019-03-08 12:07:00'), 12346, 200, 120, 101);
+insert into core.feed_details(id, created_at, channel_id, field1, field2, field3) values (16, timestamp('2019-03-05 12:09:00'), 12346, 220, 140, 101);
+insert into core.feed_details(id, created_at, channel_id, field1, field2, field3) values (17, timestamp('2019-03-08 12:11:00'), 12346, 193, 105, 101);
+insert into core.feed_details(id, created_at, channel_id, field1, field2, field3) values (18, timestamp('2019-03-02 12:33:00'), 12346, 199, 105, 101);
+insert into core.feed_details(id, created_at, channel_id, field1, field2, field3) values (19, timestamp('2019-03-08 12:22:00'), 12346, 201, 160, 101);
