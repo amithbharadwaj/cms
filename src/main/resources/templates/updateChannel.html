@@ -54,6 +54,18 @@
                 </div>
                 
                 <div class="row">
+               		 <div class="col-md-12 form-group">
+                        <label for="apiKey">API KEY</label>
+                        <span ng-show="createChannelForm.apiKey.$touched && createChannelForm.apiKey.$error" style="color:red"> 
+			                {{handleError(createChannelForm.apiKey.$error, ' Aphanumeric only', descMinLn, descMaxLn)}}
+			            </span>
+                        <textarea  rows="4" cols="90" wrap="hard"  type="text" name="apiKey" id="apiKey" class="form-control input-lg"
+                          placeholder="API KEY" maxlength="200" ng-model="form.apiKey" ng-pattern="txtReg" 
+                          ng-maxlength="descMaxLn" ng-minlength="descMinLn"></textarea>
+                    </div>
+                </div>
+                
+                <div class="row">
                	    <div class="col-md-12 form-group">
                		 	<label for="name">Channel Description</label>
                         <span ng-show="updateChannelForm.description.$touched && updateChannelForm.description.$error" style="color:red"> 

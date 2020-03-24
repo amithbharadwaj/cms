@@ -1,6 +1,7 @@
 package com.amith.cms.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -16,5 +17,7 @@ public interface ChannelRepository extends PagingAndSortingRepository<Channel, I
 	List<Channel> findAll();
 	
 	List<Channel> findByUser(User user, Pageable sortingAndPagination);
+	
+	Optional<Channel> findByApiKey(String apiKey);
 
 }

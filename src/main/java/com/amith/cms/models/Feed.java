@@ -50,7 +50,7 @@ public class Feed {
     @JsonProperty("field8")
     private String field8;
     
-    @JsonProperty("created_at")
+	@JsonProperty("created_at")
     public Date getCreatedAt() {
         return createdAt;
     }

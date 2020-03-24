@@ -186,6 +186,7 @@ app.controller('updateChannelController', function($location, $scope, $http, $wi
 	$http.get('/admin/channels/' + $scope.channelId, {
 	    headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}})
 		.success(function (data, status, headers, config) {
+			$scope.form.apiKey=data.apiKey;
 			$scope.form.name=data.name;
 			$scope.form.description=data.description;
 			$scope.form.field1=data.field1;

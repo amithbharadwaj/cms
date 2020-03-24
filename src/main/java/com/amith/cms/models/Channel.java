@@ -5,13 +5,10 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -27,6 +24,10 @@ public class Channel {
     @JsonProperty("name")
     @Column(name = "channel_name", nullable = false)
     private String name;
+    
+    @JsonProperty("apiKey")
+    @Column(name = "api_key", nullable = false, unique=true)
+    private String apiKey;
     
     @JsonProperty("description")
     @Column(name = "channel_description")
@@ -86,6 +87,14 @@ public class Channel {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getApiKey() {
+		return apiKey;
+	}
+
+	public void setApiKey(String apiKey) {
+		this.apiKey = apiKey;
 	}
 
 	public String getDescription() {

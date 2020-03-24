@@ -42,6 +42,10 @@ a {
 	max-height: 150px;
 }
 
+.carousel-item img {
+	max-height: 450px;
+}
+
 #slider h7 {
 	font-size:60px;
 }

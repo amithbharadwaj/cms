@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import com.amith.cms.exception.ChannelExistsException;
 import com.amith.cms.exception.ChannelNotFoundException;
-import com.amith.cms.exception.UserNameExistsException;
 import com.amith.cms.models.Channel;
 import com.amith.cms.models.Feed;
 import com.amith.cms.models.Response;
@@ -44,6 +43,13 @@ public class ChannelService {
 		return optionalChannel.get();
 	}
 	
+	public Channel getChannelByApiKey(String apiKey) {
+		Optional<Channel> optionalChannel = channelRepository.findByApiKey(apiKey);
+		if (!optionalChannel.isPresent())
+			throw new ChannelNotFoundException("Channel not found..");
+		return optionalChannel.get();
+	}
+	
 	public Channel addChannel(Channel channel) {
 		Optional<Channel> optionalChannel = channelRepository.findById(channel.getId());
 		if (optionalChannel.isPresent())
@@ -64,10 +70,10 @@ public class ChannelService {
 		channelRepository.deleteById(channelId);
 	}
 
-	public Feed addChannelFeeds(int channelId, Feed feed) {
-		Channel channel = getChannelById(channelId);
+	public Feed addChannelFeeds(String apiKey, Feed feed) {
+		Channel channel = getChannelByApiKey(apiKey);
 		
-		feed.setChannelId(channelId);
+		feed.setChannelId(channel.getId());
 		feed.setCreatedAt(new Date());
 		Feed feed1 = feedRepository.save(feed);
 		
@@ -83,6 +89,8 @@ public class ChannelService {
 		if (channel.getUser().getId() != jwtUtil.getUserByRequest(request).getId()) {
 			throw new ChannelNotFoundException("Not found");
 		}
+		channel.setApiKey(null);
+		
 		Pageable sortingAndPagination = 
 				  PageRequest.of(pageNo, pageSize == 0 ? 10 : pageSize , Sort.by("createdAt").descending());
 		List<Feed> feeds = feedRepository.findByChannelId(channelId, sortingAndPagination);
@@ -95,7 +103,9 @@ public class ChannelService {
 	public List<Channel> getChannelByUser(User user, int pageNo, int pageSize) {
 		Pageable sortingAndPagination = 
 				  PageRequest.of(pageNo, pageSize == 0 ? 10 : pageSize , Sort.by("createdAt").descending());
-		return channelRepository.findByUser(user, sortingAndPagination);
+		List<Channel> channels = channelRepository.findByUser(user, sortingAndPagination);
+		channels.stream().forEach(e -> e.setApiKey(null));
+		return channels;
 	}
 
 	public Channel updateChannelsUser(int channelId, int userId) {
