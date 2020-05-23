@@ -2,12 +2,71 @@ create database core;
 create user core_user identified by 'NativeS0luti0ns';
 grant all on core.* to core_user;
 
-insert into core.user_details(id, user_name, password, first_name, last_name, active, roles) values (1, 'admin@nativesolutions.com', '$2a$12$fEYdXtclmcXXBxdWJbqvD..0zk.3LOKCRUGJnmluJraMtymzPPRiO', 'admin', 'user' ,true, 'ROLE_ADMIN');
-insert into core.user_details(id, user_name, password, first_name, last_name, active, roles) values (2, 'bot@nativesolutions.com', '$2a$12$fEYdXtclmcXXBxdWJbqvD..0zk.3LOKCRUGJnmluJraMtymzPPRiO', 'bot', 'user' ,true, 'ROLE_BOT');
-insert into core.user_details(id, user_name, password, first_name, last_name, active, roles) values (3, 'user@nativesolutions.com', '$2a$12$fEYdXtclmcXXBxdWJbqvD..0zk.3LOKCRUGJnmluJraMtymzPPRiO', 'Amith', 'Bharadwaj' ,true, 'ROLE_USER');
+CREATE TABLE user_details (
+    id INTEGER NOT NULL,
+    active BIT NOT NULL,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    roles VARCHAR(255),
+    user_name VARCHAR(255) NOT NULL,
+    CONSTRAINT unique_user_name UNIQUE (user_name),
+    PRIMARY KEY (id)
+);
 
-insert into core.channel_details(id, channel_name, channel_description, field1, field2, field3, user_id) values (12345, 'test channel1 name', 'test channel1 description', 'Channel1 field1', 'Channel1 field2', 'Channel1 field3', 3);
-insert into core.channel_details(id, channel_name, channel_description, field1, field2, field3, user_id) values (12346, 'test channel2 name', 'test channel2 description', 'Channel2 field1', 'Channel2 field2', 'Channel2 field3', 3);
+create table user_seq (next_val bigint);
+insert into user_seq values ( 10 );
+
+
+CREATE TABLE channel_details (
+    id INTEGER NOT NULL,
+    api_key VARCHAR(255) NOT NULL,
+    created_at DATETIME,
+    channel_description VARCHAR(255),
+    field1 VARCHAR(255),
+    field2 VARCHAR(255),
+    field3 VARCHAR(255),
+    field4 VARCHAR(255),
+    field5 VARCHAR(255),
+    field6 VARCHAR(255),
+    field7 VARCHAR(255),
+    field8 VARCHAR(255),
+    last_entry_id INTEGER,
+    channel_latitude VARCHAR(255),
+    channel_longtitude VARCHAR(255),
+    channel_name VARCHAR(255) NOT NULL,
+    updated_at DATETIME,
+    user_id INTEGER,
+    user INTEGER,
+    CONSTRAINT unique_api_key UNIQUE (api_key),
+    PRIMARY KEY (id),
+    CONSTRAINT fk_user_id FOREIGN KEY (user_id)  REFERENCES user_details(id)
+);
+
+CREATE TABLE feed_details (
+    id INTEGER NOT NULL,
+    channel_id INTEGER NOT NULL,
+    created_at DATETIME NOT NULL,
+    field1 VARCHAR(255),
+    field2 VARCHAR(255),
+    field3 VARCHAR(255),
+    field4 VARCHAR(255),
+    field5 VARCHAR(255),
+    field6 VARCHAR(255),
+    field7 VARCHAR(255),
+    field8 VARCHAR(255),
+    PRIMARY KEY (id)
+);
+
+create table feed_seq (next_val bigint);
+insert into feed_seq values ( 100 );
+
+
+insert into core.user_details(id, user_name, password, first_name, last_name, active, roles) values (1, 'admin@nativesolutions.com', '$2a$12$fEYdXtclmcXXBxdWJbqvD..0zk.3LOKCRUGJnmluJraMtymzPPRiO', 'admin', 'user' ,true, 'ROLE_ADMIN');
+insert into core.user_details(id, user_name, password, first_name, last_name, active, roles) values (2, 'user@nativesolutions.com', '$2a$12$fEYdXtclmcXXBxdWJbqvD..0zk.3LOKCRUGJnmluJraMtymzPPRiO', 'Amith', 'Bharadwaj' ,true, 'ROLE_USER');
+
+insert into core.channel_details(id, api_key, channel_name, channel_description, field1, field2, field3, user_id) values (12345, 'dasdasdawdweeqwe23123', 'test channel1 name', 'test channel1 description', 'Channel1 field1', 'Channel1 field2', 'Channel1 field3', 2);
+insert into core.channel_details(id, api_key, channel_name, channel_description, field1, field2, field3, user_id) values (12346, 'asdadqe23wqewqdawe2ewe', 'test channel2 name', 'test channel2 description', 'Channel2 field1', 'Channel2 field2', 'Channel2 field3', 2);
 
 insert into core.feed_details(id, created_at, channel_id, field1, field2, field3) values (1, timestamp('2019-03-08 12:00:00'), 12345, 90, 100, 101);
 insert into core.feed_details(id, created_at, channel_id, field1, field2, field3) values (2, timestamp('2019-03-08 12:03:00'), 12345, 91, 104, 101);

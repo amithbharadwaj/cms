@@ -1,16 +1,5 @@
 package com.amith.cms.service;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
-
-import com.amith.cms.models.User;
-import com.amith.cms.repository.UserRepository;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,10 +8,26 @@ import java.util.function.Function;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+
+import com.amith.cms.models.User;
+import com.amith.cms.repository.UserRepository;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
 @Service
 public class JwtUtil {
 
-    private String SECRET_KEY = "secret";
+	@Value("${com.application.token.expiration}")
+	private int expInMin;
+    
+    @Value("${com.application.token.secret}")
+    private String secret;
     
 	@Autowired
     private UserRepository userRepository;
@@ -40,7 +45,7 @@ public class JwtUtil {
         return claimsResolver.apply(claims);
     }
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
 
     private Boolean isTokenExpired(String token) {
@@ -55,8 +60,8 @@ public class JwtUtil {
     private String createToken(Map<String, Object> claims, String subject) {
 
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * expInMin))
+                .signWith(SignatureAlgorithm.HS256, secret).compact();
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
